@@ -300,6 +300,82 @@ output
 }
 ```
 
+Пример: был примитивный тип, а стал объект
+
+old.json
+
+```
+{
+  "common": {
+    "setting1": "Value 1",
+    "setting3": true,
+    "setting4": "blah blah",
+    "setting5": {
+      "key5": "value5"
+    }
+  }
+}
+```
+
+new.json
+
+```
+{
+  "common": {
+    "setting1": "Value 1",
+    "setting3": {
+      "foo": "bar",
+      "baz": "bars",
+      "group3": {
+        "fee": "100500"
+      }
+    },
+    "setting4": "blah blah",
+    "setting5": 1234
+  }
+}
+```
+
+output
+
+```
+{
+  "common": {
+    "type": "changed",
+    "children": {
+      "setting1": {
+        "type": "unchanged",
+        "oldValue": "Value 1",
+        "newValue": "Value 1"
+      },
+      "setting3": {
+        "type": "changed",
+        "oldValue": true,
+        "newValue": {
+          "foo": "bar",
+          "baz": "bars",
+          "group3": {
+            "fee": "100500"
+          }
+        }
+      },
+      "setting4": {
+        "type": "unchanged",
+        "oldValue": "blah blah",
+        "newValue": "blah blah"
+      },
+      "setting5": {
+        "type": "changed",
+        "oldValue": {
+          "key5": "value5"
+        },
+        "newValue": 1234
+      }
+    }
+  }
+}
+```
+
 ## Полезные ссылки
 
 1. https://learn.javascript.ru/intro
